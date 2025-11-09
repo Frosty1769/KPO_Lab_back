@@ -1,0 +1,46 @@
+Date : 2024-01-26 11:03:13
+Directory : d:\WORKWORK\DND\dnd-game-backend
+Total : 15 files,  519 codes, 37 comments, 152 blanks, all 708 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |         15 |        519 |         37 |        152 |        708 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                      | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                         |         15 |        519 |         37 |        152 |        708 |
+| . (Files)                                                 |          4 |         23 |         27 |         23 |         73 |
+| db_actions                                                |          3 |        209 |          4 |         56 |        269 |
+| endpoints                                                 |          3 |         71 |          3 |         18 |         92 |
+| enums                                                     |          1 |         24 |          0 |          4 |         28 |
+| model                                                     |          1 |        105 |          0 |         29 |        134 |
+| schemas                                                   |          2 |         76 |          1 |         15 |         92 |
+| scr                                                       |          1 |         11 |          2 |          7 |         20 |
++-----------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                  | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\WORKWORK\DND\dnd-game-backend\app.py                   | Python   |         14 |          0 |          7 |         21 |
+| d:\WORKWORK\DND\dnd-game-backend\db.py                    | Python   |          2 |          0 |          0 |          2 |
+| d:\WORKWORK\DND\dnd-game-backend\db_actions\characters.py | Python   |        151 |          2 |         32 |        185 |
+| d:\WORKWORK\DND\dnd-game-backend\db_actions\user.py       | Python   |         32 |          0 |         14 |         46 |
+| d:\WORKWORK\DND\dnd-game-backend\db_actions\weapons.py    | Python   |         26 |          2 |         10 |         38 |
+| d:\WORKWORK\DND\dnd-game-backend\endpoints\characters.py  | Python   |         25 |          3 |          6 |         34 |
+| d:\WORKWORK\DND\dnd-game-backend\endpoints\user.py        | Python   |         25 |          0 |          6 |         31 |
+| d:\WORKWORK\DND\dnd-game-backend\endpoints\weapon.py      | Python   |         21 |          0 |          6 |         27 |
+| d:\WORKWORK\DND\dnd-game-backend\engine_db.py             | Python   |          4 |         27 |         12 |         43 |
+| d:\WORKWORK\DND\dnd-game-backend\enums\weapon_spell.py    | Python   |         24 |          0 |          4 |         28 |
+| d:\WORKWORK\DND\dnd-game-backend\model\model.py           | Python   |        105 |          0 |         29 |        134 |
+| d:\WORKWORK\DND\dnd-game-backend\schemas\characters.py    | Python   |         67 |          1 |         12 |         80 |
+| d:\WORKWORK\DND\dnd-game-backend\schemas\weapon.py        | Python   |          9 |          0 |          3 |         12 |
+| d:\WORKWORK\DND\dnd-game-backend\scr\core.py              | Python   |         11 |          2 |          7 |         20 |
+| d:\WORKWORK\DND\dnd-game-backend\test.py                  | Python   |          3 |          0 |          4 |          7 |
+| Total                                                     |          |        519 |         37 |        152 |        708 |
++-----------------------------------------------------------+----------+------------+------------+------------+------------+
