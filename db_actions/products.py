@@ -1,6 +1,6 @@
 from flask import jsonify, session
 from db import db
-from model.model import Product
+from model.model import Product, SoldProduct
 from sqlalchemy.exc import IntegrityError
 
 
@@ -108,7 +108,7 @@ def update_product_quantity(article, quantity_delta):
 
 def process_sale(items):
     """
-    Обработка продажи (списание товаров со склада)
+    Обработка продажи (списание товаров со склада и запись в историю продаж)
     items: список словарей вида [{"article": "ART001", "quantity": 2}, ...]
     """
     try:
@@ -142,6 +142,16 @@ def process_sale(items):
             product.quantity -= quantity
             item_total = product.price * quantity
             total_price += item_total
+            
+            # Записываем в историю продаж
+            sold_product = SoldProduct(
+                article=product.article,
+                name=product.name,
+                price=product.price,
+                quantity=quantity,
+                total_amount=item_total
+            )
+            db.session.add(sold_product)
             
             processed_items.append({
                 "article": product.article,
@@ -183,6 +193,64 @@ def delete_product(article):
         db.session.commit()
         
         return jsonify({"status": "ok", "message": "Товар удалён"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": f"Ошибка: {str(e)}"})
+
+
+def get_sales_report():
+    """
+    Получение отчёта по проданным товарам с группировкой по артикулу
+    """
+    if session.get('role') != 'admin':
+        return jsonify({"status": "error", "message": "Доступ запрещён"})
+    
+    try:
+        # Группируем продажи по артикулу
+        from sqlalchemy import func
+        
+        sales_summary = db.session.query(
+            SoldProduct.article,
+            SoldProduct.name,
+            func.sum(SoldProduct.quantity).label('total_quantity'),
+            func.sum(SoldProduct.total_amount).label('total_revenue')
+        ).group_by(SoldProduct.article, SoldProduct.name).all()
+        
+        # Общая выручка
+        total_revenue = db.session.query(func.sum(SoldProduct.total_amount)).scalar() or 0
+        
+        report_data = []
+        for sale in sales_summary:
+            report_data.append({
+                'article': sale.article,
+                'name': sale.name,
+                'total_quantity': sale.total_quantity,
+                'total_revenue': float(sale.total_revenue)
+            })
+        
+        return jsonify({
+            "status": "ok",
+            "data": {
+                "sales": report_data,
+                "total_revenue": float(total_revenue)
+            }
+        })
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Ошибка: {str(e)}"})
+
+
+def clear_sales_history():
+    """
+    Очистка истории продаж (только для админа)
+    """
+    if session.get('role') != 'admin':
+        return jsonify({"status": "error", "message": "Доступ запрещён"})
+    
+    try:
+        db.session.query(SoldProduct).delete()
+        db.session.commit()
+        
+        return jsonify({"status": "ok", "message": "История продаж очищена"})
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": f"Ошибка: {str(e)}"})

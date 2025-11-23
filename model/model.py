@@ -49,3 +49,29 @@ class Product(db.Model):
             'updated_at': self.updated_at
         }
 
+
+class SoldProduct(db.Model):
+    """
+    История проданных товаров
+    """
+    __tablename__ = 'sold_products'
+    
+    id = db.Column(INTEGER, autoincrement=True, primary_key=True, nullable=False)
+    article = db.Column(TEXT, nullable=False)  # артикул товара
+    name = db.Column(TEXT, nullable=False)     # название на момент продажи
+    price = db.Column(REAL, nullable=False)    # цена на момент продажи
+    quantity = db.Column(INTEGER, nullable=False)  # проданное количество
+    total_amount = db.Column(REAL, nullable=False)  # общая сумма (price * quantity)
+    sold_at = db.Column(TEXT, default=lambda: datetime.utcnow().isoformat())  # дата и время продажи
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'article': self.article,
+            'name': self.name,
+            'price': self.price,
+            'quantity': self.quantity,
+            'total_amount': self.total_amount,
+            'sold_at': self.sold_at
+        }
+

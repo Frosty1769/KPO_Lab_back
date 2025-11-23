@@ -5,7 +5,9 @@ from db_actions.products import (
     get_all_products, 
     get_product_by_article,
     process_sale,
-    delete_product
+    delete_product,
+    get_sales_report,
+    clear_sales_history
 )
 
 bp = Blueprint("products", __name__)
@@ -54,8 +56,22 @@ class Sale(Resource):
         return process_sale(items)
 
 
+class SalesReport(Resource):
+    """Получение отчёта по продажам (только админ)"""
+    def get(self):
+        return get_sales_report()
+
+
+class ClearSales(Resource):
+    """Очистка истории продаж (только админ)"""
+    def post(self):
+        return clear_sales_history()
+
+
 api.add_resource(ProductAdd, "/add")
 api.add_resource(ProductList, "/list")
 api.add_resource(ProductByArticle, "/article/<string:article>")
 api.add_resource(ProductDelete, "/delete/<string:article>")
 api.add_resource(Sale, "/sale")
+api.add_resource(SalesReport, "/sales-report")
+api.add_resource(ClearSales, "/clear-sales")
