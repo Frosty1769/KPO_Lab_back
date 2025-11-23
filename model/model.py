@@ -22,6 +22,9 @@ class User(db.Model):
             'role': self.role,
             'created_at': self.created_at
         }
+    
+    def __repr__(self):
+        return f"<User {self.username} ({self.role})>"
 
 
 class Product(db.Model):
@@ -48,6 +51,9 @@ class Product(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
+    
+    def __repr__(self):
+        return f"<Product {self.article}: {self.name} ({self.quantity} шт.)>"
 
 
 class SoldProduct(db.Model):
@@ -74,4 +80,7 @@ class SoldProduct(db.Model):
             'total_amount': self.total_amount,
             'sold_at': self.sold_at
         }
+    
+    def __repr__(self):
+        return f"<SoldProduct {self.article}: {self.quantity} шт. на сумму {self.total_amount} руб.)>"
 
